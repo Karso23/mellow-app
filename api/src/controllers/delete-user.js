@@ -5,12 +5,10 @@ const usersDb = require('../db/userList.js');
 const delete_user = (req, res) => {
   try {
     const { id } = req.body;
-    console.log({ id });
 
     if (!id) throw Error('Es necesario el id del usuario para poder borrarlo');
 
     const indexToDelete = usersDb.findIndex((e) => e.id === id);
-    console.log(indexToDelete);
 
     if (indexToDelete < 0) throw Error('El usuario no fue encontrado');
 

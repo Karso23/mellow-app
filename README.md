@@ -1,46 +1,101 @@
-# Getting Started with Create React App
+# Aplicacion que despliega una lista de usuarios en pantalla y borra el usuario dando click en el boton de borrar
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Pasos para correr la aplicación en forma local
 
-## Available Scripts
+Esta guía describe los pasos necesarios para correr la aplicación en tu máquina local.
+<br>
+<br>
 
-In the project directory, you can run:
+> ### 1.- Clonar o hacer fork al repositorio
 
-### `npm start`
+<br>
+Para correr la aplicación localmente, primero necesitas clonar o hacer fork al repositorio. Puedes hacerlo mediante la interfaz web de GitHub o mediante la línea de comandos. Si decides clonar el repositorio, ejecuta el siguiente comando en tu terminal:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+// Ejemplo:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+git clone "url del repositorio"
 
-### `npm test`
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br>
+<br>
 
-### `npm run build`
+> ### 2.- Instalar dependencias
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
+Una vez que tengas el repositorio en tu máquina local, debes instalar las dependencias necesarias para la aplicación. Para hacerlo, asegúrate de tener Node.js y npm instalados en tu máquina y ejecuta el siguiente comando en la raíz del repositorio clonado:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+npm install
 
-### `npm run eject`
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<br>
+<br>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> ### 3.- Iniciar el servidor
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<br>
+Para correr el servidor de la API, debes posicionarte dentro de la carpeta `api` y ejecutar el siguiente comando:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
 
-## Learn More
+nodemon server.js
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Esto iniciará el servidor en `http://localhost:3001` por defecto.
+<br>
+<br>
+
+> ### 4.- Iniciar la aplicación
+
+<br>
+Para correr la aplicación, debes posicionarte en la carpeta raíz de la aplicación y ejecutar el siguiente comando:
+
+```
+
+npm start
+
+```
+
+Esto cargará la aplicación en `http://localhost:3000`.
+<br>
+<br>
+
+> ### 5.- Reiniciar la base de datos
+
+<br>
+Si deseas reiniciar la base de datos solo deten el servior desde consola, vuelvelo a iniciar y recarga la pagina.
+<br>
+<br>
+¡Listo! Ahora puedes usar la aplicación localmente.
+
+=========================================================================
+<br>
+<br>
+
+# Notas extras
+
+> ## Pasos básicos a seguir para poder asegurar las llamadas HTTP utilizando JWT
+
+El usuario se tiene que autenticar para recibir sus credenciales en el Token que genera el servidor y se lo devuelve al usuario
+Ese token deberia de quedar guardado en el localstorage del usuario para que cada vez que haga una peticion al servidor el servidor solo verifique que siga siendo valido el token
+Debido a esto la aplicacion tendria que guardar en el localstorage ese token para que cada vez que el usuario mande una peticion al servidor se mande ese token en el header de la peticion.
+
+<br>
+<br>
+
+> ## Flujo General de como se implementaria un a Autenticacion basada en 0Auth
+
+El usuario manda la solicitud de inicio de sesion al servidor de autorización de OAuth.
+
+El servidor de OAuth deberia mostrar una pantalla de autorización que solicita al usuario su consentimiento para otorgar acceso a los recursos protegidos.
+
+Si el usuario concede acceso, el servidor de autorización de OAuth redirige al usuario a la aplicación web con un token de acceso en la URL que se almacena en el local storage del navegador.
+
+La aplicación web utiliza ese token de acceso para solicitar los recursos de la API RESTful.
+
+La ventaja es que podemos nosotros tambien establecer el tiempo de vida que puede Tener el Token para que sea valido y volver a solicitar las credenciales y no depender unicamente que la cookie que se guarda en el navegador sea borrada.
